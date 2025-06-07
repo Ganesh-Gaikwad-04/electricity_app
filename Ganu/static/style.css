@@ -1,0 +1,21 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.custom-card {
+  border-radius: 20px;
+  background-color: #ffffff;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #0066cc;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #005bb5;
+}
