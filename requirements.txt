@@ -8,3 +8,4 @@ statsmodels==0.13.5
 scikit-learn==1.2.2
 pystan
 gunicorn
+python -m pip install --upgrade pip setuptools wheel
