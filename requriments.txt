@@ -1,0 +1,10 @@
+flask
+pandas
+numpy
+matplotlib
+prophet
+statsmodels
+scikit-learn
+ARIMA
+SARIMA
+pmdarima
