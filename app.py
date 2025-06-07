@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import pandas as pd
 import numpy as np
-from prophet import Prophet
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import matplotlib.pyplot as plt
@@ -26,15 +25,6 @@ def load_data():
     return df
 
 data = load_data()
-
-# Prophet Forecast
-def prophet_forecast(df, days):
-    df_prophet = df.reset_index().rename(columns={"DateTime": "ds", "Global_active_power": "y"})
-    model = Prophet()
-    model.fit(df_prophet)
-    future = model.make_future_dataframe(periods=days)
-    forecast = model.predict(future)
-    return forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail(days)
 
 # Improved ARIMA Forecast
 def arima_forecast(df, days):
@@ -134,13 +124,7 @@ def forecast():
     insights = ""
     forecast_days_2026 = 366  # Leap year
 
-    if model_type == 'prophet':
-        forecast_df = prophet_forecast(data, forecast_days_2026)
-        forecast_values = forecast_df['yhat'].values
-        forecast_dates = forecast_df['ds'].dt.strftime('%Y-%m-%d').tolist()
-        plot_url = plot_forecast(data, forecast_values, 'Prophet')
-        insights = generate_insights(data, forecast_values)
-    elif model_type == 'arima':
+    if model_type == 'arima':
         forecast_values = arima_forecast(data, forecast_days_2026)
         forecast_dates = pd.date_range(data.index[-1], periods=forecast_days_2026+1, freq='D')[1:].strftime('%Y-%m-%d').tolist()
         plot_url = plot_forecast(data, forecast_values, 'ARIMA')
