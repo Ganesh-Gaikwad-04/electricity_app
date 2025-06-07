@@ -8,3 +8,4 @@ scikit-learn
 ARIMA
 SARIMA
 pmdarima
+gunicorn
